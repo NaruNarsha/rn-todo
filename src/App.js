@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import SignInScreen from './screens/SignInScreen';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import TestAvoid from './screens/TestAvoid';
 
 const App = () => {
     {/* 💡 SafeAreaView에 flex: 1과 backgroundColor를 가진 styles.container 적용 
@@ -12,12 +13,9 @@ const App = () => {
         
     return (
         <SafeAreaProvider>
-            <SafeAreaView style={styles.container}> 
+            <SafeAreaView style={styles.container}>
                 <StatusBar style="dark" />
-                <Text style={{
-                    fontSize: 60,
-                    color: "green",
-                }}>TODO App</Text>
+                {/*<TestAvoid />*/}
                 <SignInScreen />
             </SafeAreaView>
         </SafeAreaProvider>
