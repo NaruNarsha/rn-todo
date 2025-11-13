@@ -1,8 +1,8 @@
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from "react-native";
-
 import PropTypes from "prop-types";
 
-const SafeInputView = (children) => {
+
+const SafeInputView = () => {
     return (
         <KeyboardAvoidingView
             style={{ flex: 1}}
@@ -12,7 +12,7 @@ const SafeInputView = (children) => {
                 style = {{ flex: 1}}
                 onPress={() => Keyboard.dismiss()}
             >
-                {children}
+            {children}
             </Pressable>
 
         </KeyboardAvoidingView>
