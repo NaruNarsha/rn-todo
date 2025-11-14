@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text } from "react-native"
+import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native"
 import PropTypes from "prop-types"
-import { PRIMARY, WHITE } from "../colors"
+import { PRIMARY, WHITE, GRAY } from "../colors"
 
 /**
  * Pressable 컴포넌트를 사용했습니다. 
@@ -18,7 +18,7 @@ import { PRIMARY, WHITE } from "../colors"
         여기서 { pressed }는 객체의 속성 중 **pressed**라는 속성만 비구조화 할당(Destructuring Assignment)으로 꺼내온 것입니다.
 
  */
-const Button = ({ title, onPress, disabled  }) => {
+const Button = ({ title, onPress, disabled, isLoading }) => {
     return (
         <Pressable
             onPress={onPress}
@@ -29,7 +29,12 @@ const Button = ({ title, onPress, disabled  }) => {
                 ]}
                 disabled = {disabled}
         >
-            <Text style={styles.title}>{title}</Text>
+            { isLoading ? (
+                <ActivityIndicator size="small" color={GRAY.DEFAULT} />
+            ) : (
+                <Text style={styles.title}>{title}</Text>
+            )}            
+            
         </Pressable>
     );
 };
@@ -40,6 +45,7 @@ Button.propTypes = {
     title: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

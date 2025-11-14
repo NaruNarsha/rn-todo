@@ -29,6 +29,8 @@ const SignInScreen = () => {
     const [password, setPassword] = useState("");
     const passwordRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(()=> {
         console.log("only email: ", email, password);
@@ -37,13 +39,21 @@ const SignInScreen = () => {
     }, [email, password]);
 
 
-    const onSubmit = () => {
-        Keyboard.dismiss();
-        console.log("email:", email, ", password:", password);
+   const onSubmit = async () => {
 
-        signIn(email, password)
-            .then((data)=> console.log(data))
-            .catch((error) => console.log(error));
+        console.log("isLoading :", isLoading);
+        if(!isLoading && !disabled){
+            try{
+                console.log("SignIn Started");
+                setIsLoading(true);
+                Keyboard.dismiss();
+                const data = await signIn(email, password);
+                console.log("SignIn Success: ", data);
+            }catch (error) {
+                console.log(error);
+            }
+            setIsLoading(false);
+        }
     };
 
 
@@ -83,7 +93,12 @@ const SignInScreen = () => {
                         />
 
                         <View style={styles.buttonContainer}>
-                            <Button title="로그인" onPress={onSubmit} disabled={disabled}/>
+                            <Button 
+                                title="로그인" 
+                                onPress={onSubmit} 
+                                disabled={disabled} 
+                                isLoading={isLoading}
+                            />
                         </View>
                     </View>
             </Pressable>
