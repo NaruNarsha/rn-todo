@@ -3,6 +3,8 @@ import Input, { IconNames, KeyboardTypes, ReturnKeyTypes } from '../components/I
 import SafeInputView from "../components/SafeInputView"; 
 import { useState, useRef, useEffect } from "react"
 import Button from "../components/Button";
+import { signIn } from '../api/auth';
+
 
 // const SignInScreen = () => {
 //     return (
@@ -38,6 +40,10 @@ const SignInScreen = () => {
     const onSubmit = () => {
         Keyboard.dismiss();
         console.log("email:", email, ", password:", password);
+
+        signIn(email, password)
+            .then((data)=> console.log(data))
+            .catch((error) => console.log(error));
     };
 
 
