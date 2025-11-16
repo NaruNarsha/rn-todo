@@ -1,4 +1,4 @@
-import { Image, Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import {  Alert, Image, Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import Input, { IconNames, KeyboardTypes, ReturnKeyTypes } from '../components/Input';
 import SafeInputView from "../components/SafeInputView"; 
 import { useState, useRef, useEffect } from "react"
@@ -39,9 +39,38 @@ const SignInScreen = () => {
     }, [email, password]);
 
 
-   const onSubmit = async () => {
+    const onSubmit = async () => {
 
         console.log("isLoading :", isLoading);
+
+        // Alert.alert('title', 'message', [
+        //     { 
+        //         text: 'default',
+        //         style: 'default',
+        //         onPress: () => console.log('default'),
+        //     },
+        //     { 
+        //         text: 'cancel',
+        //         style: 'cancel',
+        //         onPress: () => console.log('cancel'),
+        //     },
+        //     { 
+        //         text: 'destructive',
+        //         style: 'destructive',
+        //         onPress: () => console.log('destructive'),
+        //     },
+        //     { 
+        //         text: 'last cancel',
+        //         style: 'cancel',
+        //         onPress: () => console.log('last cancel'),
+        //     },
+        //     { 
+        //         text: 'last index',
+        //         onPress: () => console.log('last index'),
+        //     }, 
+        // ]);
+
+
         if(!isLoading && !disabled){
             try{
                 console.log("SignIn Started");
@@ -50,6 +79,9 @@ const SignInScreen = () => {
                 const data = await signIn(email, password);
                 console.log("SignIn Success: ", data);
             }catch (error) {
+                Alert.alert('로그인 실패', error, [
+                    {text : '확인', onPress: () => setIsLoading(false) },
+                ]);
                 console.log(error);
             }
             setIsLoading(false);

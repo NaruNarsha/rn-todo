@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
         color: WHITE,
         fontSize: 16,
         fontWeight: "700",
+        lineHeight: 20,
     }
 })
 
