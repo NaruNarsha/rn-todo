@@ -4,7 +4,7 @@ import SafeInputView from "../components/SafeInputView";
 import { useState, useRef, useEffect } from "react"
 import Button from "../components/Button";
 import { signIn } from '../api/auth';
-
+import PropTypes from 'prop-types';
 
 // const SignInScreen = () => {
 //     return (
@@ -23,7 +23,8 @@ import { signIn } from '../api/auth';
 
 
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
+    //console.log("SignInScreen navigation: ", navigation);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -32,11 +33,21 @@ const SignInScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
 
 
+    useEffect(() => {
+        navigation.setOptions({
+            contentStyle:{
+                backgroundColor: email ? 'lightskyblue' : 'gainsboro',
+            },
+        });
+    }, [email, navigation] );
+
     useEffect(()=> {
         console.log("only email: ", email, password);
 
         setDisabled( !email || !password);
     }, [email, password]);
+
+
 
 
     const onSubmit = async () => {
@@ -73,11 +84,11 @@ const SignInScreen = () => {
 
         if(!isLoading && !disabled){
             try{
-                console.log("SignIn Started");
                 setIsLoading(true);
                 Keyboard.dismiss();
                 const data = await signIn(email, password);
-                console.log("SignIn Success: ", data);
+                setIsLoading(false);
+                navigation.navigate('List')
             }catch (error) {
                 Alert.alert('로그인 실패', error, [
                     {text : '확인', onPress: () => setIsLoading(false) },
@@ -155,5 +166,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },  
 });
+
+
+SignInScreen.propTypes = {
+    navigation: PropTypes.object,
+};
 
 export default SignInScreen;

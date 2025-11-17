@@ -5,6 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TestAvoid from './screens/TestAvoid';
 import { WHITE } from './colors';
 import { NavigationContainer } from '@react-navigation/native';
+import AuthStack from './navigations/AuthStack';
 
 const App = () => {
     {/* 💡 
@@ -16,10 +17,12 @@ const App = () => {
     */}
         
     return (
-        <NavigationContainer>
-             <StatusBar style="dark" />
-             <SignInScreen />
-        </NavigationContainer>
+       <SafeAreaProvider>
+          <NavigationContainer>
+              <StatusBar style="dark" />
+              <AuthStack />
+          </NavigationContainer>
+        </SafeAreaProvider>
     );
 
     // return (
