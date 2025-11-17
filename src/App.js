@@ -4,7 +4,7 @@ import SignInScreen from './screens/SignInScreen';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TestAvoid from './screens/TestAvoid';
 import { WHITE } from './colors';
-
+import { NavigationContainer } from '@react-navigation/native';
 
 const App = () => {
     {/* 💡 
@@ -16,17 +16,22 @@ const App = () => {
     */}
         
     return (
-        <SafeAreaProvider>
-            <SafeAreaView style={styles.container}>
-                <StatusBar style="dark" />
-                {/*<TestAvoid />*/}
-                <SignInScreen />
-            </SafeAreaView>
-        </SafeAreaProvider>
+        <NavigationContainer>
+             <StatusBar style="dark" />
+             <SignInScreen />
+        </NavigationContainer>
     );
+
+    // return (
+    //     <SafeAreaProvider>
+    //         <SafeAreaView style={styles.container}>
+    //             <StatusBar style="dark" />
+    //             {/*<TestAvoid />*/}
+    //             <SignInScreen />
+    //         </SafeAreaView>
+    //     </SafeAreaProvider>
+    // );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
