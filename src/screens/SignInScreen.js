@@ -23,7 +23,7 @@ import PropTypes from 'prop-types';
 
 
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({ setUser }) => {
     //console.log("SignInScreen navigation: ", navigation);
 
     const [email, setEmail] = useState("");
@@ -33,13 +33,13 @@ const SignInScreen = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    useEffect(() => {
-        navigation.setOptions({
-            contentStyle:{
-                backgroundColor: email ? 'lightskyblue' : 'gainsboro',
-            },
-        });
-    }, [email, navigation] );
+    // useEffect(() => {
+    //     navigation.setOptions({
+    //         contentStyle:{
+    //             backgroundColor: email ? 'lightskyblue' : 'gainsboro',
+    //         },
+    //     });
+    // }, [email, navigation] );
 
     useEffect(()=> {
         console.log("only email: ", email, password);
@@ -54,41 +54,14 @@ const SignInScreen = ({ navigation }) => {
 
         console.log("isLoading :", isLoading);
 
-        // Alert.alert('title', 'message', [
-        //     { 
-        //         text: 'default',
-        //         style: 'default',
-        //         onPress: () => console.log('default'),
-        //     },
-        //     { 
-        //         text: 'cancel',
-        //         style: 'cancel',
-        //         onPress: () => console.log('cancel'),
-        //     },
-        //     { 
-        //         text: 'destructive',
-        //         style: 'destructive',
-        //         onPress: () => console.log('destructive'),
-        //     },
-        //     { 
-        //         text: 'last cancel',
-        //         style: 'cancel',
-        //         onPress: () => console.log('last cancel'),
-        //     },
-        //     { 
-        //         text: 'last index',
-        //         onPress: () => console.log('last index'),
-        //     }, 
-        // ]);
-
-
         if(!isLoading && !disabled){
             try{
                 setIsLoading(true);
                 Keyboard.dismiss();
                 const data = await signIn(email, password);
                 setIsLoading(false);
-                navigation.navigate('List')
+                setUser(data);
+                console.log("SignInScreen signIn data: ", data);
             }catch (error) {
                 Alert.alert('로그인 실패', error, [
                     {text : '확인', onPress: () => setIsLoading(false) },

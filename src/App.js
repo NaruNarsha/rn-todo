@@ -6,6 +6,8 @@ import TestAvoid from './screens/TestAvoid';
 import { WHITE } from './colors';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './navigations/AuthStack';
+import MainStack from './navigations/MainStack';
+import { useState } from 'react';
 
 const App = () => {
     {/* 💡 
@@ -15,25 +17,21 @@ const App = () => {
         SafeAreaView가 그 정보를 받아 상태 표시줄과 홈 인디케이터 영역을 제외한 곳에 콘텐츠를 배치하며, 
         여기에 styles.container에 정의된 흰색 배경이 화면 전체에 걸쳐 적용될 것입니다.
     */}
-        
+    
+    const [user, setUser] = useState(null);
+
     return (
        <SafeAreaProvider>
           <NavigationContainer>
               <StatusBar style="dark" />
-              <AuthStack />
+              {user ? (
+                <MainStack user={user} setUser={setUser} />
+              ) : (
+                <AuthStack user={user} setUser={setUser} />
+              )}          
           </NavigationContainer>
         </SafeAreaProvider>
     );
-
-    // return (
-    //     <SafeAreaProvider>
-    //         <SafeAreaView style={styles.container}>
-    //             <StatusBar style="dark" />
-    //             {/*<TestAvoid />*/}
-    //             <SignInScreen />
-    //         </SafeAreaView>
-    //     </SafeAreaProvider>
-    // );
 };
 
 const styles = StyleSheet.create({
